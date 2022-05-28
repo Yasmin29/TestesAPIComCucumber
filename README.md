@@ -1,7 +1,6 @@
 # TestesAPIComCucumber
-Testes na API do serverest utilizando Rest-Assures e Cucumber
+Testes na API do serverest, utilizando Rest-Assures e Cucumber
 
-#Requisitos
 # Requisitos
 
 - Java 8+ JDK deve estar instalado

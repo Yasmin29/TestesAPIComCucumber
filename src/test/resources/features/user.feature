@@ -9,7 +9,6 @@ Funcionalidade: Criar novo usuario
     Então deve retornar mensagem "Cadastro realizado com sucesso"
     E deve constar na lista de usuários cadastrados
 
-
   Cenário: Criar um administrador com dados válidos
     Quando crio um novo administrador com dados válidos
     Então deve retornar mensagem "Cadastro realizado com sucesso"
@@ -21,7 +20,7 @@ Funcionalidade: Criar novo usuario
 
   Esquema do Cenário: Criar usuario com email inválido
     Quando insiro um "<email>" inválido
-#    Então Retorna mensagem "email deve ser um email válido"
+    Então Retorna mensagem "email deve ser um email válido"
     Exemplos:
       | email              |
       | email.invalido.com |
@@ -29,15 +28,12 @@ Funcionalidade: Criar novo usuario
       | email@invalido.    |
 
   Esquema do Cenário: Criar usuario sem preencher o campo "<campo>"
-    Quando preencho o campo nome com "<nome>"
-    E preencho o campo email com "<email>"
-    E preencho o campo password com "<password>"
-    E preencho o campo  administrador com "<administrador>"
-    Então Deve retornar mensagem "<mensagem>"
+    Dado que preencho os campos com "<nome>", "<email>", "<password>","<administrador>"
+    Então retorna erro 400
 
     Exemplos:
-      | campo         | nome      | email            | password | administrador | mensagem                                 |
-      | nome          |           | email@email.com  | senha123 | false         | nome não pode ficar em branco            |
-      | email         | Guilherme |                  | senha123 | false         | email não pode ficar em branco           |
-      | password      | Arthur    | arthur@email.com | senha123 | false         | password não pode ficar em branco        |
-      | administrador | Amanda    | amanda@email.com | senha123 |               | administrador deve ser 'true' ou 'false' |
+      | campo         | nome      | email            | password | administrador |
+      | nome          |           | email@email.com  | senha123 | false         |
+      | email         | Guilherme |                  | senha123 | false         |
+      | password      | Arthur    | arthur@email.com |          | false         |
+      | administrador | Amanda    | amanda@email.com | senha123 |               |

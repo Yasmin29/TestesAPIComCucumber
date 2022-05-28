@@ -70,30 +70,42 @@ public class UserSteps {
 
     @Quando("insiro um email ja cadastrado")
     public void insiroUmEmailJaCadastrado() {
+        bodyUser = BodyUser.builder().nome(name).email(email).build();
+        userService.postUser(bodyUser);
+        response = userService.postUser(bodyUser);
+        assertEquals(400, response.getStatusCode());
+
     }
 
     @Então("Deve retornar erro {string}")
-    public void deveRetornarErro(String arg0) {
+    public void deveRetornarErro(String message) {
+        assertEquals(message, response.jsonPath().getString("message"));
     }
 
     @Quando("insiro um {string} inválido")
-    public void insiroUmInválido(String arg0) {
+    public void insiroUmInválido(String email) {
+        bodyUser = BodyUser.builder().nome(name).email(email).build();
+        response = userService.postUser(bodyUser);
+        assertEquals(400, response.getStatusCode());
     }
 
-    @Quando("preencho o campo nome com {string}")
-    public void preenchoOCampoNomeCom(String arg0) {
+    @Então("Retorna mensagem {string}")
+    public void retornaMensagem(String message) {
+        assertEquals(message, response.jsonPath().getString("email"));
+        response.then().log().all();
     }
 
-    @E("preencho o campo email com {string}")
-    public void preenchoOCampoEmailCom(String arg0) {
+
+    @Dado("que preencho os campos com {string}, {string}, {string},{string}")
+    public void quePreenchoOsCamposCom(String nome, String email, String password, String administrador) {
+        bodyUser = BodyUser.builder().nome(nome).email(email).password(password).administrador(administrador).build();
+        response = userService.postUser(bodyUser);
+        assertEquals(400, response.getStatusCode());
     }
 
-    @E("preencho o campo password com {string}")
-    public void preenchoOCampoPasswordCom(String arg0) {
+    @Então("retorna erro 400")
+    public void retorna() {
+        assertEquals(400, response.getStatusCode());
+        response.then().log().all();
     }
-
-    @E("preencho o campo  administrador com {string}")
-    public void preenchoOCampoAdministradorCom(String arg0) {
-    }
-
 }
